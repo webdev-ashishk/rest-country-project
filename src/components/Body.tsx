@@ -1,6 +1,6 @@
 import React from "react";
 const Body = () => (
-  <>
+  <div className="" data-testid="bodyOfDiv">
     <h1>Body.tsx rendered!</h1>
     <p>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab delectus quos
@@ -25,6 +25,6 @@ const Body = () => (
       aspernatur atque nostrum laudantium veritatis ratione est, numquam esse,
       recusandae, iste laborum voluptatibus!
     </p>
-  </>
+  </div>
 );
 export default Body;

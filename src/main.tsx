@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import "./Style.css";
 import AppLayout from "./components/AppLayout";
+import CountryNameCart from "./components/CountryNameCart";
 import Error from "./components/Error";
 
 const rootNode = document.getElementById("root");
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <App />,
+      },
+      {
+        path: "/name/:countryName",
+        element: <CountryNameCart />,
       },
     ],
   },

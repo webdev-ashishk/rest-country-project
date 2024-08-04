@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import ListOfAllCountry from "./ListOfAllCountry";
 type CountryType = {
   name: {
@@ -53,7 +54,9 @@ interface AllCountryInterface {
 const Body = () => {
   // const [allCountry, setAllCountry] = useState(null);
   const [allCountry, setAllCountry] = useState([]);
-
+  const [filterCountry, setFilterCountry] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const { countryName } = useParams();
   useEffect(() => {
     fetchAllCountry();
   }, []);
@@ -61,24 +64,33 @@ const Body = () => {
     const data = await fetch("https://restcountries.com/v3.1/all");
     const json = await data.json();
     setAllCountry(json);
+    setFilterCountry(json);
   };
   console.log(allCountry);
   // if (!allCountry) return <div>loading...</div>;
   if (allCountry.length === 0) return <div>loading...</div>;
   return (
     <div className="w-11/12 my-5 mx-auto">
-      <div className="body-top flex justify-between">
+      <div className="body-top flex justify-between mx-10 font-serif">
         {/* <IoSearchOutline /> */}
         <input
           type="text"
           name="search"
           id=""
-          placeholder="search..."
-          className="p-1  bg-gray-700"
+          placeholder="            search..."
+          className="bg-gray-700 w-[30%] text-blue-400 font-bold text-[1.2rem]"
+          onChange={(e) => setSearchText(e.target.value)}
+          value={searchText}
         />
-        <button className="bg-gray-700 p-2 m-2">Filter By Region</button>
+        <p>{searchText}</p>
+        <select className="bg-gray-700 p-2 m-2">
+          <option value="1">love</option>
+          <option value="2">wow</option>
+          <option value="3">dumm</option>
+          <option value="4">genius</option>
+        </select>
       </div>
-      <div className="body-last border-2 flex flex-wrap justify-center aligen-center">
+      <div className="body-last flex flex-wrap">
         {allCountry.map((country: CountryType) => {
           const countryData: AllCountryInterface = {
             name: country.name.common,
@@ -95,7 +107,11 @@ const Body = () => {
             currencies: country.currencies,
             key: country.cca3, // Or another unique identifier
           };
-          return <ListOfAllCountry key={countryData.cca3} {...countryData} />;
+          return (
+            <Link to={`/name/${countryData.name}`}>
+              <ListOfAllCountry key={countryData.ccn3} {...countryData} />
+            </Link>
+          );
         })}
       </div>
     </div>

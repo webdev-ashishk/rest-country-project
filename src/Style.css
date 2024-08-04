@@ -10,4 +10,5 @@ html {
 }
 .cart {
   background-color: rgba(43, 54, 66, 255);
+  border: 2px solid blue;
 }

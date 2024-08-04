@@ -81,7 +81,7 @@ const Body = () => {
       <div className="body-last border-2 flex flex-wrap justify-center aligen-center">
         {allCountry.map((country: CountryType) => {
           const countryData: AllCountryInterface = {
-            name: country.name.common, // Use the common name if that's what you need
+            name: country.name.common,
             cca2: country.cca2,
             cca3: country.cca3,
             ccn3: country.ccn3,

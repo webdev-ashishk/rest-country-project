@@ -2,11 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 html {
-  background-color: rgb(1, 17, 45);
+  background-color: #1e2c34;
   color: white;
 }
-
+.header {
+  background-color: #2b3642;
+}
 .cart {
-  background-color: rgba(0, 0, 0, 0.622);
-  color: white;
+  background-color: rgba(43, 54, 66, 255);
 }

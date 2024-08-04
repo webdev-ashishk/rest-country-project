@@ -1,30 +1,37 @@
-import React from "react";
-const Body = () => (
-  <div className="" data-testid="bodyOfDiv">
-    <h1>Body.tsx rendered!</h1>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab delectus quos
-      facilis vitae iste unde dolor consequuntur reiciendis, tempore laboriosam
-      aut accusantium, odit quod sequi ea! Dolore eaque impedit iure natus vel?
-      Non nihil ratione modi soluta quia voluptatibus laudantium quam nam
-      reiciendis, hic maxime ea quisquam? Laboriosam doloremque placeat esse
-      nemo? Laudantium placeat quisquam dolores, iure rerum repellendus voluptas
-      et expedita nisi, est vitae at quod autem magnam illo cupiditate aut, quo
-      ipsa? Maxime temporibus nemo illo iusto? Impedit natus eius, facere
-      laboriosam corporis asperiores quibusdam numquam dolor placeat qui,
-      mollitia ducimus inventore provident, rerum debitis magnam quas iusto eum
-      eligendi dolorem hic! Nam officia fugiat sequi inventore rem esse
-      nesciunt, consequuntur est aliquam iure illum, praesentium dolores nulla
-      provident ducimus! Voluptates, eaque voluptatem, repellat optio culpa
-      maxime doloribus laborum modi aut, earum natus esse. Quaerat eaque qui rem
-      tenetur molestiae assumenda voluptatibus quos quas nostrum ratione. Nihil
-      quisquam doloribus tenetur id ex sint officiis hic maxime corrupti quis,
-      voluptas quasi impedit alias iusto, enim, labore quibusdam. Veritatis id
-      optio tempora reprehenderit fugit omnis obcaecati! Itaque, incidunt
-      libero. Animi, debitis ducimus. Debitis inventore ipsa obcaecati! Vel
-      aspernatur atque nostrum laudantium veritatis ratione est, numquam esse,
-      recusandae, iste laborum voluptatibus!
-    </p>
-  </div>
-);
+import React, { useEffect, useState } from "react";
+import ListOfAllCountry from "./ListOfAllCountry";
+
+const Body = () => {
+  const [allCountry, setAllCountry] = useState(null);
+
+  useEffect(() => {
+    fetchAllCountry();
+  }, []);
+  const fetchAllCountry = async () => {
+    const data = await fetch("https://restcountries.com/v3.1/all");
+    const json = await data.json();
+    setAllCountry(json);
+  };
+  console.log(allCountry);
+  if (!allCountry) return <div>loading...</div>;
+  return (
+    <div className="w-11/12 my-5 mx-auto">
+      <div className="body-top flex justify-between">
+        {/* <IoSearchOutline /> */}
+        <input
+          type="text"
+          name="search"
+          id=""
+          placeholder="search..."
+          className="p-1  bg-gray-700"
+        />
+        <button className="bg-gray-700 p-2 m-2">Filter By Region</button>
+      </div>
+      <div className="body-last border-2 mt-5">
+        <ListOfAllCountry />
+      </div>
+    </div>
+  );
+};
+
 export default Body;

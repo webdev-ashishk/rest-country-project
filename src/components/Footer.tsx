@@ -1,6 +1,11 @@
-import React from "react"
+import React from "react";
 const Footer = () => (
-  <div>
+  <div
+    style={{
+      textAlign: "center",
+      backgroundColor: "darkgreen",
+    }}
+  >
     <h1>footer.tsx rendere!</h1>
   </div>
 );

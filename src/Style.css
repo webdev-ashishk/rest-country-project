@@ -5,3 +5,8 @@ html {
   background-color: rgb(1, 17, 45);
   color: white;
 }
+
+.cart {
+  background-color: rgba(0, 0, 0, 0.622);
+  color: white;
+}

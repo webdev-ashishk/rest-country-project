@@ -1,14 +1,34 @@
 import React from "react";
-const ListOfAllCountry = () => {
+interface AllCountryInterface {}
+interface FlagInteface {
+  png: string;
+  svg: string;
+}
+interface AllCountryInterface {
+  flags: FlagInteface;
+  name: string;
+  population: number;
+  region: string;
+  capital?: string[];
+}
+
+const ListOfAllCountry: React.FC<AllCountryInterface> = ({
+  flags,
+  name,
+  population,
+  region,
+}) => {
   return (
-    <div className="bg-blue-300 w-3/12">
-      <img src="" alt="" />
-      <h1>country Name</h1>
-      <ul>
-        <li>Population :1234</li>
-        <li>Region :1234</li>
-        <li>Capital :berlin</li>
-      </ul>
+    <div className="cart w-[250px] mx-10 my-10 border-2 rounded-sm">
+      <img src={flags.png} alt="this is flag" className="h-[200px]" />
+      <div className="p-8">
+        <h1 className="font-bold my-2">Name : {name}</h1>
+        <ul>
+          <li>Population :{population}</li>
+          <li>Region :{region}</li>
+          {/* <li>Capital :{capital}</li> */}
+        </ul>
+      </div>
     </div>
   );
 };

@@ -110,7 +110,7 @@ const CountryNameCart: React.FC = () => {
 
   useEffect(() => {
     fetchSingleCountryData();
-  }, [countryName]);
+  }, []);
 
   const fetchSingleCountryData = async () => {
     try {
@@ -138,12 +138,11 @@ const CountryNameCart: React.FC = () => {
     languages,
   } = countryData;
   function handleBackButtonClicked() {
-    console.log(object);
+    console.log("btn clicked!");
   }
   return (
     <div className="w-11/12 mx-auto my-0">
       <Link to={"/"}>
-        {" "}
         <button className="bg-blue-400 p-3 rounded-lg w-32 font-bold text-2xl flex justify-between items-center mt-11">
           <FaLongArrowAltLeft />
           Back
@@ -152,7 +151,7 @@ const CountryNameCart: React.FC = () => {
 
       <div className="countryCart  flex mt-36">
         <div className="left w-1/3">
-          <img src={flag} alt="flag" />
+          <img src={flag} alt="flag" className="w-[99%]" />
         </div>
         <div className="right w-1/3 pl-20 pt-10">
           <h1 className="text-2xl">{countryName}</h1>

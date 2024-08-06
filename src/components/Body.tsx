@@ -51,11 +51,33 @@ interface AllCountryInterface {
   };
   key: string; // Or another appropriate unique identifier
 }
-
+type AllCountryType = {
+  name: string; // Adjusted to a string, assuming that's what ListOfAllCountry expects
+  cca2: string;
+  cca3: string;
+  ccn3: string;
+  cioc: string;
+  flags: {
+    png: string;
+    svg: string;
+  };
+  region: string;
+  subregion: string;
+  population: number;
+  capital?: string[];
+  languages?: { [key: string]: string };
+  currencies?: {
+    [key: string]: {
+      name: string;
+      symbol: string;
+    };
+  };
+  key: string; // Or another appropriate unique identifier
+};
 const Body = () => {
   // const [allCountry, setAllCountry] = useState(null);
-  const [allCountry, setAllCountry] = useState([]);
-  const [filterCountry, setFilterCountry] = useState([]);
+  const [allCountry, setAllCountry] = useState<CountryType[]>([]);
+  const [filterCountry, setFilterCountry] = useState<CountryType[]>([]);
   const [searchText, setSearchText] = useState<string>("");
   const [bgColor, setBgColor] = useState("white");
 
@@ -70,7 +92,7 @@ const Body = () => {
   }, []);
   const fetchAllCountry = async () => {
     const data = await fetch("https://restcountries.com/v3.1/all");
-    const json = await data.json();
+    const json: CountryType[] = await data.json();
     setAllCountry(json);
     setFilterCountry(json);
   };
@@ -82,7 +104,7 @@ const Body = () => {
     <div className="w-11/12 my-5 mx-auto">
       <BackgroundColorChanger />
       <div className="body-top flex justify-between mx-10 font-serif">
-        <form className="flex items-center max-w-lg mx-auto">
+        <div className="flex items-center max-w-lg mx-auto">
           <label htmlFor="voice-search" className="sr-only">
             Search
           </label>
@@ -110,11 +132,24 @@ const Body = () => {
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="country name ..."
               required
+              value={searchText}
+              onChange={(e) => {
+                setSearchText(e.target.value);
+              }}
             />
           </div>
           <button
-            type="submit"
             className="inline-flex items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            onClick={() => {
+              const filterCountryData = allCountry.filter((country) =>
+                country.name.common
+                  ?.toLowerCase()
+                  ?.includes(searchText.toLowerCase())
+              );
+              setFilterCountry(filterCountryData);
+              console.log(filterCountryData);
+              console.log("searchTEXT " + searchText);
+            }}
           >
             <svg
               className="w-4 h-4 me-2"
@@ -133,7 +168,7 @@ const Body = () => {
             </svg>
             Search
           </button>
-        </form>
+        </div>
 
         {/* drop down */}
         <select className="bg-gray-700 p-2 m-2">

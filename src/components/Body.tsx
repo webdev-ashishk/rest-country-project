@@ -1,108 +1,65 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import BackgroundColorChanger from "./BackgroundColorChanger";
+import { AllCountryInterface, CountryType } from "./BodyType";
 import ListOfAllCountry from "./ListOfAllCountry";
-type CountryType = {
-  name: {
-    common: string;
-    official: string;
-  };
-  cca2: string;
-  cca3: string;
-  ccn3: string;
-  cioc: string;
-  flags: {
-    png: string;
-    svg: string;
-  };
-  region: string;
-  subregion: string;
-  population: number;
-  capital?: string[];
-  languages?: { [key: string]: string };
-  currencies?: {
-    [key: string]: {
-      name: string;
-      symbol: string;
-    };
-  };
-  // Add other fields as needed based on API response
-};
-interface AllCountryInterface {
-  name: string; // Adjusted to a string, assuming that's what ListOfAllCountry expects
-  cca2: string;
-  cca3: string;
-  ccn3: string;
-  cioc: string;
-  flags: {
-    png: string;
-    svg: string;
-  };
-  region: string;
-  subregion: string;
-  population: number;
-  capital?: string[];
-  languages?: { [key: string]: string };
-  currencies?: {
-    [key: string]: {
-      name: string;
-      symbol: string;
-    };
-  };
-  key: string; // Or another appropriate unique identifier
+
+function _filterCountryData(
+  searchText: string | number,
+  allCountry: CountryType[]
+) {
+  const filterCountryData = allCountry.filter((country: CountryType) =>
+    country.name.common
+      ?.toLowerCase()
+      ?.includes(searchText.toString().toLowerCase())
+  );
+  return filterCountryData;
 }
-type AllCountryType = {
-  name: string; // Adjusted to a string, assuming that's what ListOfAllCountry expects
-  cca2: string;
-  cca3: string;
-  ccn3: string;
-  cioc: string;
-  flags: {
-    png: string;
-    svg: string;
-  };
-  region: string;
-  subregion: string;
-  population: number;
-  capital?: string[];
-  languages?: { [key: string]: string };
-  currencies?: {
-    [key: string]: {
-      name: string;
-      symbol: string;
-    };
-  };
-  key: string; // Or another appropriate unique identifier
-};
+
 const Body = () => {
   // const [allCountry, setAllCountry] = useState(null);
   const [allCountry, setAllCountry] = useState<CountryType[]>([]);
   const [filterCountry, setFilterCountry] = useState<CountryType[]>([]);
   const [searchText, setSearchText] = useState<string>("");
-  const [bgColor, setBgColor] = useState("white");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
-  const changeColor = () => {
-    // Generate a random color
-    setBgColor("#" + Math.floor(Math.random() * 16777215).toString(16));
-  };
-  // Update the CSS variable
-  document.documentElement.style.setProperty("--app-background-color", bgColor);
   useEffect(() => {
     fetchAllCountry();
   }, []);
   const fetchAllCountry = async () => {
-    const data = await fetch("https://restcountries.com/v3.1/all");
-    const json: CountryType[] = await data.json();
-    setAllCountry(json);
-    setFilterCountry(json);
+    try {
+      const data = await fetch("https://restcountries.com/v3.1/all");
+      const json: CountryType[] = await data.json();
+      setAllCountry(json);
+      setFilterCountry(json);
+    } catch (error) {
+      setErrorMessage("no country found... " + JSON.stringify(error));
+    }
   };
   console.log(allCountry);
   console.log(filterCountry);
+  const searchCountryData = (
+    searchText: string | number,
+    allCountry: CountryType[]
+  ) => {
+    if (searchText !== "") {
+      const filterData = _filterCountryData(searchText, allCountry);
+      setFilterCountry(filterData);
+      setErrorMessage("");
+      if (filterData.length === 0) {
+        setErrorMessage("no country data found!");
+      } else {
+        setErrorMessage("");
+        setFilterCountry(filterData);
+      }
+    }
+  };
   // if (!allCountry) return <div>loading...</div>;
   if (allCountry.length === 0) return <div>loading...</div>;
+  {
+    errorMessage && <div>not data found! {errorMessage}</div>;
+  }
   return (
     <div className="w-11/12 my-5 mx-auto">
-      <BackgroundColorChanger />
       <div className="body-top flex justify-between mx-10 font-serif">
         <div className="flex items-center max-w-lg mx-auto">
           <label htmlFor="voice-search" className="sr-only">
@@ -141,14 +98,15 @@ const Body = () => {
           <button
             className="inline-flex items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             onClick={() => {
-              const filterCountryData = allCountry.filter((country) =>
-                country.name.common
-                  ?.toLowerCase()
-                  ?.includes(searchText.toLowerCase())
-              );
-              setFilterCountry(filterCountryData);
-              console.log(filterCountryData);
-              console.log("searchTEXT " + searchText);
+              searchCountryData(searchText, allCountry);
+              // const filterCountryData = allCountry.filter((country) =>
+              //   country.name.common
+              //     ?.toLowerCase()
+              //     ?.includes(searchText.toLowerCase())
+              // );
+              // setFilterCountry(filterCountryData);
+              // console.log(filterCountryData);
+              // console.log("searchTEXT " + searchText);
             }}
           >
             <svg
@@ -178,7 +136,7 @@ const Body = () => {
           <option value="4">genius</option>
         </select>
       </div>
-      <div className="body-last flex flex-wrap">
+      <div className="body-last flex flex-wrap justify-evenly">
         {filterCountry.map((country: CountryType) => {
           const countryData: AllCountryInterface = {
             name: country.name.common,

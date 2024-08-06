@@ -1,27 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* html {
+html {
   background-color: #1e2c34;
   color: white;
-} */
+}
 .header {
   background-color: #2b3642;
 }
 .cart {
   background-color: rgba(43, 54, 66, 255);
-  border: 2px solid blue;
-}
-
-:root {
-  --app-background-color: white;
-  --app-color: black;
-}
-
-body {
-  background-color: lightgreen;
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  color: white;
 }

@@ -137,11 +137,9 @@ const CountryNameCart: React.FC = () => {
     currencies,
     languages,
   } = countryData;
-  function handleBackButtonClicked() {
-    console.log("btn clicked!");
-  }
+
   return (
-    <div className="w-11/12 mx-auto my-0">
+    <div className="w-11/12 mx-auto my-0 h-full">
       <Link to={"/"}>
         <button className="bg-blue-400 p-3 rounded-lg w-32 font-bold text-2xl flex justify-between items-center mt-11">
           <FaLongArrowAltLeft />

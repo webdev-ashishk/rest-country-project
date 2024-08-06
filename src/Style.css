@@ -11,3 +11,41 @@ html {
 .cart {
   background-color: rgba(43, 54, 66, 255);
 }
+
+/* Global Scrollbar Styles */
+
+/* WebKit Browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 20px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #2b3642; /* Background color of the track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #acacac; /* Color of the scrollbar handle */
+  border-radius: 10px; /* Optional: Round corners of the scrollbar handle */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1; /* Color of the scrollbar handle on hover */
+}
+
+/* Firefox */
+html {
+  scrollbar-width: thin; /* Makes the scrollbar thinner */
+  scrollbar-color: #ffffff #2b3642; /* Scrollbar color thumb and track */
+}
+
+/* For Internet Explorer 10+ and Edge (Legacy) */
+body {
+  -ms-overflow-style: -ms-autohiding-scrollbar; /* Use the autohiding scrollbar */
+}
+
+/* General Styles */
+body {
+  overflow: auto; /* Ensure scrollbars are visible */
+  margin: 0; /* Remove default margins */
+  padding: 0; /* Remove default padding */
+}

@@ -25,6 +25,11 @@ async function _filterSelectedCountryRegion(
   );
   return selectedCountryData;
 }
+function _getUniqueRegions(allCountry: CountryType[]) {
+  const regions = allCountry.map((country) => country.region);
+  const uniqueRegions = new Set(regions);
+  return Array.from(uniqueRegions);
+}
 const Body = () => {
   // const [allCountry, setAllCountry] = useState(null);
   const [allCountry, setAllCountry] = useState<CountryType[]>([]);
@@ -77,7 +82,7 @@ const Body = () => {
     setSelectedRegion(value);
   };
 
-  console.log("selected regions: " + selectedRegion);
+  // console.log("selected regions: " + selectedRegion);
 
   const searchCountryBasedOnRegion = async (
     selectedRegion: string,
@@ -88,10 +93,9 @@ const Body = () => {
       allCountry
     );
     setFilterCountry(data);
-    console.log("without stringify a object " + data);
-    // console.log("filter selected country region " + JSON.stringify(data));
+    // console.log("without stringify a object " + data);
   };
-
+  const allUniqueRegions = _getUniqueRegions(allCountry);
   if (allCountry.length === 0) return <ShimmerUIOfAllCountry />;
   {
     errorMessage && <div>not data found! {errorMessage}</div>;
@@ -166,10 +170,8 @@ const Body = () => {
           name="dropdown"
           onChange={handleRegionChange}
         >
-          {allCountry.map((country: CountryType) => (
-            <option value={country.region} key={country.ccn3}>
-              {country.region}
-            </option>
+          {allUniqueRegions.map((region, index) => (
+            <option key={index}>{region}</option>
           ))}
         </select>
       </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AllCountryInterface, CountryType } from "./BodyType";
 import ListOfAllCountry from "./ListOfAllCountry";
+import ShimmerUIOfAllCountry from "./ShimmerUI";
 
 function _filterCountryData(
   searchText: string | number,
@@ -15,7 +16,7 @@ function _filterCountryData(
   return filterCountryData;
 }
 
-function _filterSelectedCountryRegion(
+async function _filterSelectedCountryRegion(
   selectedRegion: string,
   allCountry: CountryType[]
 ) {
@@ -30,11 +31,18 @@ const Body = () => {
   const [filterCountry, setFilterCountry] = useState<CountryType[]>([]);
   const [searchText, setSearchText] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [selectedRegion, setSelectedRegion] = useState<string>("");
-
+  const [selectedRegion, setSelectedRegion] = useState<string>(
+    "filter by regions ..."
+  );
+  // This useEffect for api call
   useEffect(() => {
     fetchAllCountry();
   }, []);
+  // This useEffect for drop down
+  useEffect(() => {
+    console.log("useEffect-2 called!");
+    searchCountryBasedOnRegion(selectedRegion, allCountry);
+  }, [selectedRegion]);
   const fetchAllCountry = async () => {
     try {
       const data = await fetch("https://restcountries.com/v3.1/all");
@@ -46,7 +54,7 @@ const Body = () => {
     }
   };
   // console.log(allCountry);
-  console.log(JSON.stringify(filterCountry));
+  // console.log(JSON.stringify(filterCountry));
   const searchCountryData = (
     searchText: string | number,
     allCountry: CountryType[]
@@ -65,25 +73,26 @@ const Body = () => {
   };
 
   const handleRegionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value;
+    const value = event.target.value.toLowerCase();
     setSelectedRegion(value);
-    searchCountryBasedOnResion(selectedRegion, allCountry);
   };
 
-  console.log(selectedRegion);
-  const searchCountryBasedOnResion = (
+  console.log("selected regions: " + selectedRegion);
+
+  const searchCountryBasedOnRegion = async (
     selectedRegion: string,
     allCountry: CountryType[]
   ) => {
-    const data: CountryType[] = _filterSelectedCountryRegion(
+    const data: CountryType[] = await _filterSelectedCountryRegion(
       selectedRegion,
       allCountry
     );
     setFilterCountry(data);
+    console.log("without stringify a object " + data);
+    // console.log("filter selected country region " + JSON.stringify(data));
   };
 
-  // if (!allCountry) return <div>loading...</div>;
-  if (allCountry.length === 0) return <div>loading...</div>;
+  if (allCountry.length === 0) return <ShimmerUIOfAllCountry />;
   {
     errorMessage && <div>not data found! {errorMessage}</div>;
   }
@@ -128,14 +137,6 @@ const Body = () => {
             className="inline-flex items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             onClick={() => {
               searchCountryData(searchText, allCountry);
-              // const filterCountryData = allCountry.filter((country) =>
-              //   country.name.common
-              //     ?.toLowerCase()
-              //     ?.includes(searchText.toLowerCase())
-              // );
-              // setFilterCountry(filterCountryData);
-              // console.log(filterCountryData);
-              // console.log("searchTEXT " + searchText);
             }}
           >
             <svg
@@ -159,13 +160,11 @@ const Body = () => {
 
         {/* DROP-DOWN down */}
         <label htmlFor="region"> Filter By Region </label>
-
         <select
           className="bg-gray-700 p-2 mx-2 my-auto w-[200px]"
           id="region"
           name="dropdown"
           onChange={handleRegionChange}
-          value={selectedRegion}
         >
           {allCountry.map((country: CountryType) => (
             <option value={country.region} key={country.ccn3}>

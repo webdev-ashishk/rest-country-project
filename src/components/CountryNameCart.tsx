@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
+import CountryCartShimmerUI from "./CountryCartShimmerUI";
 // TypeScript interfaces for API response
 
 interface Flag {
@@ -124,7 +125,7 @@ const CountryNameCart: React.FC = () => {
     }
   };
 
-  if (!countryData) return <div>Loading...</div>;
+  if (!countryData) return <CountryCartShimmerUI />;
 
   // Destructure the required details from countryData
   const {

@@ -5,17 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dropdown Selector</title>
   </head>
+  <style>
+    body {
+      background-color: lightseagreen;
+    }
+  </style>
   <body>
     <label for="cars">Choose a car:</label>
     <select name="cars" id="cars" onchange="printSelectedValue()">
-      <optgroup label="Swedish Cars">
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-      </optgroup>
-      <optgroup label="German Cars">
-        <option value="mercedes">Mercedes</option>
-        <option value="audi">Audi</option>
-      </optgroup>
+      <option value="volvo">Volvo</option>
+      <option value="saab">Saab</option>
     </select>
     <!-- <button onclick="printSelectedValue()">Print Selected Car</button> -->
 
@@ -24,15 +23,10 @@
       function printSelectedValue() {
         // Get the select element by its ID
         const carSelect = document.getElementById("cars");
-
         // Get the selected value
         const selectedValue = carSelect.value;
-
         // Print the selected value to the console
         console.log("Selected Car:", selectedValue);
-
-        // Optionally, display the selected value in an alert
-        alert("Selected Car: " + selectedValue);
       }
     </script>
   </body>

@@ -48,4 +48,5 @@ body {
   overflow: auto; /* Ensure scrollbars are visible */
   margin: 0; /* Remove default margins */
   padding: 0; /* Remove default padding */
+  min-height: 100vh;
 }

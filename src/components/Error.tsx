@@ -1,4 +1,8 @@
 import React from "react";
+interface ErrorObject {
+  message: string;
+  status: string;
+}
 const Error = () => {
   return (
     <div>

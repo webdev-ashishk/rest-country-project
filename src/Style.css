@@ -16,7 +16,7 @@ html {
 
 /* WebKit Browsers (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
-  width: 20px; /* Width of the scrollbar */
+  width: 100px; /* Width of the scrollbar */
 }
 
 ::-webkit-scrollbar-track {

@@ -142,7 +142,7 @@ const CountryNameCart: React.FC = () => {
   return (
     <div className="w-11/12 mx-auto my-0 h-full">
       <Link to={"/"}>
-        <button className="bg-blue-400 p-3 rounded-lg w-32 font-bold text-2xl flex justify-between items-center mt-11">
+        <button className="bg-blue-400 p-3 rounded-lg w-32 font-bold text-2xl flex justify-evenly items-center mt-11">
           <FaLongArrowAltLeft />
           Back
         </button>
@@ -150,7 +150,7 @@ const CountryNameCart: React.FC = () => {
 
       <div className="countryCart  flex mt-36">
         <div className="left w-1/3">
-          <img src={flag} alt="flag" className="w-[99%]" />
+          <img src={flag} alt="flag" className="w-[99%] h-[70%]" />
         </div>
         <div className="right w-1/3 pl-20 pt-10">
           <h1 className="text-2xl">{countryName}</h1>

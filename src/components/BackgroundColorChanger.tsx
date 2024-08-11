@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 
 const BackgroundColorChanger = () => {
   // State to hold the current background color

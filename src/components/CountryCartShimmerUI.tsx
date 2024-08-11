@@ -1,4 +1,3 @@
-import React from "react";
 const CountryCartShimmerUI = () => {
   return (
     <div className="w-11/12 mx-auto my-48 h-full">

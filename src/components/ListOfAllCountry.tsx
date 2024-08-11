@@ -1,4 +1,3 @@
-import React from "react";
 interface AllCountryInterface {}
 interface FlagInteface {
   png: string;
@@ -29,10 +28,17 @@ const ListOfAllCountry: React.FC<AllCountryInterface> = ({
       <div className="p-6 h-[180px]">
         <h1 className="font-bold my-2 text-[1.2rem]"> {name}</h1>
         <ul>
-          <li>Population :{population}</li>
-          <li>Region :{region}</li>
           <li>
-            Capital :{capital ? capital.join(", ") : "No capital available"}
+            <strong>Population :</strong>
+            {population}
+          </li>
+          <li>
+            <strong>Region :</strong>
+            {region}
+          </li>
+          <li>
+            <strong>Capital :</strong>
+            {capital ? capital.join(", ") : "No capital available"}
           </li>
         </ul>
       </div>

@@ -1,4 +1,3 @@
-import React from "react";
 const ShimmerUIOfAllCountry = () => {
   return (
     <div className="w-11/12 my-5 mx-auto flex flex-wrap justify-evenly">

@@ -12,6 +12,12 @@ html {
   background-color: rgba(43, 54, 66, 255);
 }
 
+.h-custom-error {
+  height: calc(100vh - 112px);
+}
+.search-input-box-size {
+  width: 20rem;
+}
 /* Global Scrollbar Styles */
 
 /* WebKit Browsers (Chrome, Safari, Edge) */

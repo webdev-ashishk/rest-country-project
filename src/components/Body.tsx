@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AllCountryInterface, CountryType } from "./BodyType";
 import ListOfAllCountry from "./ListOfAllCountry";
@@ -97,9 +97,7 @@ const Body = () => {
   };
   const allUniqueRegions = _getUniqueRegions(allCountry);
   if (allCountry.length === 0) return <ShimmerUIOfAllCountry />;
-  {
-    errorMessage && <div>not data found! {errorMessage}</div>;
-  }
+  if (errorMessage) return <p>{errorMessage}</p>;
   return (
     <div className="w-11/12 my-5 mx-auto">
       <div className="body-top flex justify-between mx-10 font-serif">
@@ -107,7 +105,7 @@ const Body = () => {
           <label htmlFor="voice-search" className="sr-only">
             Search
           </label>
-          <div className="relative w-full">
+          <div className="relative w-full search-input-box-size">
             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
               <svg
                 className="w-4 h-4 text-gray-500 dark:text-gray-400"
@@ -126,7 +124,7 @@ const Body = () => {
               </svg>
             </div>
             <input
-              type="text"
+              type="search"
               id="voice-search"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="country name ..."

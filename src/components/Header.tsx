@@ -9,6 +9,9 @@ const Header = () => {
     document.body.style.color = "";
     document.body.style.backgroundColor = "#c1cdd1";
   };
+
+
+
   return (
     <div className="header text-2xl font-bold header p-6 sticky top-0">
       <ul className="header-ul w-11/12 my-0 mx-auto  flex justify-between items-center">

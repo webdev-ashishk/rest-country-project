@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { GoMoveToTop } from "react-icons/go";
 import { Link } from "react-router-dom";
 import { AllCountryInterface, CountryType } from "./BodyType";
 import ListOfAllCountry from "./ListOfAllCountry";
@@ -39,6 +40,8 @@ const Body = () => {
   const [selectedRegion, setSelectedRegion] = useState<string>(
     "filter by regions ..."
   );
+
+  const [backToTheTop, setBackToTheTop] = useState<boolean>(false);
   // This useEffect for api call
   useEffect(() => {
     fetchAllCountry();
@@ -94,6 +97,23 @@ const Body = () => {
     );
     setFilterCountry(data);
     // console.log("without stringify a object " + data);
+  };
+
+  // back to the top
+  window.addEventListener("scroll", () => {
+    console.log(window.scrollY + "px");
+    if (window.scrollY >= 550) {
+      // console.log("done");
+      setBackToTheTop(true);
+    } else if (window.screenY < 550) {
+      setBackToTheTop(false);
+    }
+  });
+  const handleScroll = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Optional: adds smooth scrolling
+    });
   };
   const allUniqueRegions = _getUniqueRegions(allCountry);
   if (allCountry.length === 0) return <ShimmerUIOfAllCountry />;
@@ -197,6 +217,16 @@ const Body = () => {
           );
         })}
       </div>
+      {/* back to top  */}
+      {backToTheTop && (
+        <p className="back-to-top" onClick={handleScroll}>
+          <div className="to-top">
+            <button>
+              <GoMoveToTop />
+            </button>
+          </div>
+        </p>
+      )}
     </div>
   );
 };

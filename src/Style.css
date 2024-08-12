@@ -18,6 +18,29 @@ html {
 .search-input-box-size {
   width: 20rem;
 }
+/* back to top  */
+.back-to-top {
+  position: fixed;
+  background-color: rgb(29, 78, 216);
+  color: black;
+  display: inline;
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  /* top: 500px;
+  left: 700px; */
+  right: 35px;
+  bottom: 35px;
+  z-index: 100;
+}
+.back-to-top > .to-top {
+  padding: 3px;
+}
+.back-to-top > .to-top > button {
+  font-size: 40px;
+  font-weight: 600;
+  /* padding: 2px; */
+}
 /* Global Scrollbar Styles */
 
 /* WebKit Browsers (Chrome, Safari, Edge) */

@@ -71,6 +71,9 @@ const Body = () => {
       const filterData = _filterCountryData(searchText, allCountry);
       setFilterCountry(filterData);
       setErrorMessage("");
+      if (searchText == "") {
+        setFilterCountry(filterData);
+      }
       if (filterData.length === 0) {
         setErrorMessage("no country data found!");
       } else {
